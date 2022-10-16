@@ -1,0 +1,37 @@
+/* null.css 2.4 */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  border: none;
+  outline: none;
+}
+
+html {
+  font: normal normal normal 16px / 1 sans-serif;
+}
+
+img {
+  display: block;
+}
+
+code {
+  font-family: monospace;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+ol, ul {
+  list-style: none;
+}

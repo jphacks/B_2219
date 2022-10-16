@@ -1,0 +1,7 @@
+.header-container {
+  margin: 0 auto;
+}
+
+.header_container > header {
+  padding: 1rem;
+}
