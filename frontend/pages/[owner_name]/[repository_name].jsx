@@ -5,7 +5,7 @@ import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
 import Header from "../../components/header";
 import Layout from "../../components/layout";
 
-const TopPage = () => {
+const ShakyoPage = () => {
   const router = useRouter();
 
   const { owner_name, repository_name } = router.query;
@@ -28,4 +28,4 @@ const TopPage = () => {
   );
 };
 
-export default TopPage;
+export default ShakyoPage;

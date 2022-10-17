@@ -1,7 +1,6 @@
-.header-container {
-  margin: 0 auto;
-}
+.header-container {}
 
 .header_container > header {
-  padding: 1rem;
+  padding: 2rem;
+  font-weight: bold;
 }

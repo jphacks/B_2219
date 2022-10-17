@@ -35,3 +35,11 @@ input {
 ol, ul {
   list-style: none;
 }
+
+/* Common CSS */
+
+html {
+  color: #FFF;
+  background: #333;
+  font-family: "Inter", sans-serif;
+}
