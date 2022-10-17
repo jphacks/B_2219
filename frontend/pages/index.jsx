@@ -1,13 +1,16 @@
 import Header from "../components/header";
 import Layout from "../components/layout";
+import RepoForm from "../components/repo_form";
 
-const Top = () => {
+import styles from "../components/repo_form"
+
+const TopPage = () => {
   return (
     <Layout>
       <Header />
-      <p>TOP PAGE</p>
+      <RepoForm />
     </Layout>
   )
 };
 
-export default Top;
+export default TopPage;

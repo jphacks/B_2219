@@ -1,0 +1,33 @@
+.repo_form {
+  max-width: 40rem;
+  margin: 4rem auto;
+  padding: 0 2rem;
+}
+
+.repo_form > * {
+  display: block;
+}
+
+.repo_form > label {
+  margin-bottom: 0.5rem;
+}
+
+.repo_form > input[type="text"] {
+  padding: 0.75rem;
+  width: 100%;
+  margin-bottom: 1rem;
+  border: 1px solid #555;
+  border-radius: 0.125rem;
+}
+
+.repo_form > button {
+  padding: 0.75rem;
+  width: 100%;
+  background: #0077C8;
+  border-radius: 0.125rem;
+  cursor: pointer;
+}
+
+.repo_form > button:hover {
+  background: #0077C8CC;
+}
