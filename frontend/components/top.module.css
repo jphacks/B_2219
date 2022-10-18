@@ -1,0 +1,9 @@
+.logged_in, .not_logged_in {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 40rem;
+}
+
+.logged_in > p, .not_logged_in > p {
+  line-height: 2rem;
+}
