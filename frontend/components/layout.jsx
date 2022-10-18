@@ -2,7 +2,7 @@ import Head from "next/head";
 
 import styles from "./layout.module.css";
 
-const Layout = ({ children }) => {
+const Layout = ({ className = "", children }) => {
   return (
     <>
       <Head>

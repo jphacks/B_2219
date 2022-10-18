@@ -1,6 +1,22 @@
-.header-container {}
-
 .header_container > header {
-  padding: 2rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.header_container > header > a{
+  margin-right: auto;
   font-weight: bold;
+  border: none;
+}
+
+.header_container > header > button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #777;
+  border-radius: 0.125rem;
+  cursor: pointer;
+}
+
+.header_container > header > button:hover {
+  background: #FFF1;
 }
