@@ -18,7 +18,7 @@ const TopPage = () => {
       </Layout>
     );
   }
-
+ 
   return (
     <Layout className={styles.logged_in}>
       <Header />
