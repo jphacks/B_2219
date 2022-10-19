@@ -49,3 +49,39 @@ def create_item_for_user(user_id: int, item: schemas.ItemCreate, db: Session = D
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
+
+
+@app.post("/projects/", response_model=dict[str, schemas.Commit])
+def get_project(repository: schemas.Repository, db: Session = Depends(get_db)):
+    return {
+        "prev-commit": {
+            "message": "text: This is a test commit",
+            "id": "d52feab983da8cf07ffc1c875106e0e73d5b2b95",
+            "files": [
+                {
+                    "name": "hello-world.c",
+                    "content": '#include <stdio.h>\n\nint main() {\n  printf("hello, world");\n}\n',
+                }
+            ],
+        },
+        "progress-commit": {
+            "message": "text: This is a test commit",
+            "id": "d52feab983da8cf07ffc1c875106e0e73d5b2b96",
+            "files": [
+                {
+                    "name": "hello-world.c",
+                    "content": '#include <stdio.h>\n\nint main() {\n  printf("hello, world\\");\n}\n',
+                }
+            ],
+        },
+        "target-commit": {
+            "message": "text: This is a test commit",
+            "id": "d52feab983da8cf07ffc1c875106e0e73d5b2b97",
+            "files": [
+                {
+                    "name": "hello-world.c",
+                    "content": '#include <stdio.h>\n\nint main() {\n  printf("hello, world\\n");\n}\n',
+                }
+            ],
+        },
+    }
