@@ -11,24 +11,24 @@ const RepoForm = () => {
       return;
     }
 
-    const response = await fetch("/projects/", {
+    const response = await fetch("/projects", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: {
+      body: JSON.stringify({
         "repository": {
           "owner": repoInfo[1],
-          "name": repoInfo[2]
+          "name": repoInfo[2],
         }
-      }
+      })
     });
   };
 
   return (
-    <form onSubmit={submitRepositoryForm} className={styles.repo_form}>
+    <form method="POST" action="/api/projects" className={styles.repo_form}>
       <label htmlFor="repo_url">Repository URL</label>
-      <input type="text" name="repo_url" id="repo_url" placeholder="https://github.com/username/repository" />
+      <input type="text" name="repo_url" id="repo_url" pattern="https:\/\/github.com\/\w+\/\w+" placeholder="https://github.com/username/repository" />
       <button type="submit">ShaKyo!</button>
     </form>
   );

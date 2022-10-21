@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import Script from "next/script";
 
 import Header from "../components/header";
 import Layout from "../components/layout";
@@ -18,7 +19,7 @@ const TopPage = () => {
       </Layout>
     );
   }
- 
+
   return (
     <Layout className={styles.logged_in}>
       <Header />
