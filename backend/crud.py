@@ -86,3 +86,31 @@ def update_project(db: Session, project_id: int, progress_commit_hash: str):
         db.commit()
         db.close()
         return query.first()
+
+
+def create_file(db: Session, project_id: int, file: schemas.FileCreate):
+    query = db.query(models.File).filter(
+        models.File.project_id == project_id, models.File.name == file.name, models.File.content == file.content
+    )
+    if not db.query(query.exists()).scalar():
+        db_file = models.File(project_id=project_id, name=file.name, content=file.content)
+        db.add(db_file)
+        db.commit()
+        db.refresh(db_file)
+        return db_file
+
+
+def get_files(
+    db: Session,
+    project_id: int | None = None,
+):
+    return db.query(models.File).filter(models.File.project_id == project_id).all()
+
+
+def delete_files(
+    db: Session,
+    project_id: int | None = None,
+):
+    db.query(models.File).filter(models.File.project_id == project_id).delete()
+    db.commit()
+    db.close()

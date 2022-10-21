@@ -55,11 +55,13 @@ class Project(ProjectCreate):
         orm_mode = True
 
 
-class File(BaseModel):
-    id: int
-    project_id: int
+class FileCreate(BaseModel):
     name: str
     content: str
+
+
+class File(FileCreate):
+    id: int
 
     class Config:
         orm_mode = True

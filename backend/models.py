@@ -43,4 +43,4 @@ class File(Base):
     id = Column(Integer, primary_key=True, index=True)
     project_id = Column(Integer, index=True)
     name = Column(String, index=True)
-    content = Column(Integer, index=True)
+    content = Column(String, index=True)

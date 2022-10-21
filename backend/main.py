@@ -97,3 +97,29 @@ def update_project(project_id: int, project: schemas.ProjectUpdate, db: Session 
     if db_project is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_project
+
+
+@app.post("/projects/{project_id}/files/", response_model=schemas.File)
+def create_file(project_id: int, file: schemas.FileCreate, db: Session = Depends(get_db)):
+    db_file = crud.create_file(db, project_id=project_id, file=file)
+    if db_file is None:
+        raise HTTPException(status_code=409, detail="Duplicate file")
+    return db_file
+
+
+@app.get("/projects/{project_id}/files/", response_model=list[schemas.File])
+def read_files(
+    project_id: int,
+    db: Session = Depends(get_db),
+):
+    db_files = crud.get_files(db, project_id=project_id)
+    return db_files
+
+
+@app.delete("/projects/{project_id}/files/")
+def delete_files(
+    project_id: int,
+    db: Session = Depends(get_db),
+):
+    crud.delete_files(db, project_id=project_id)
+    return {"detail": "Success"}
