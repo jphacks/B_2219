@@ -51,37 +51,35 @@ def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return items
 
 
-@app.post("/projects/", response_model=dict[str, schemas.Commit])
-def get_project(repository: schemas.Repository, db: Session = Depends(get_db)):
-    return {
-        "prev-commit": {
-            "message": "text: This is a test commit",
-            "id": "d52feab983da8cf07ffc1c875106e0e73d5b2b95",
-            "files": [
-                {
-                    "name": "hello-world.c",
-                    "content": '#include <stdio.h>\n\nint main() {\n  printf("hello, world");\n}\n',
-                }
-            ],
-        },
-        "progress-commit": {
-            "message": "text: This is a test commit",
-            "id": "d52feab983da8cf07ffc1c875106e0e73d5b2b96",
-            "files": [
-                {
-                    "name": "hello-world.c",
-                    "content": '#include <stdio.h>\n\nint main() {\n  printf("hello, world\\");\n}\n',
-                }
-            ],
-        },
-        "target-commit": {
-            "message": "text: This is a test commit",
-            "id": "d52feab983da8cf07ffc1c875106e0e73d5b2b97",
-            "files": [
-                {
-                    "name": "hello-world.c",
-                    "content": '#include <stdio.h>\n\nint main() {\n  printf("hello, world\\n");\n}\n',
-                }
-            ],
-        },
-    }
+@app.post("/projects/", response_model=schemas.Project)
+def create_project(project: schemas.ProjectCreate, db: Session = Depends(get_db)):
+    db_project = crud.create_project(
+        db,
+        repository_owner=project.repository_owner,
+        repository_name=project.repository_name,
+        creator_github_id=project.creator_github_id,
+    )
+    if db_project is None:
+        raise HTTPException(status_code=409, detail="Duplicate project")
+    return db_project
+
+
+@app.get("/projects/", response_model=list[schemas.Project])
+def read_projects(
+    repository_owner: str | None = None,
+    repository_name: str | None = None,
+    creator_github_id: int | None = None,
+    db: Session = Depends(get_db),
+):
+    db_projects = crud.get_projects(
+        db, repository_owner=repository_owner, repository_name=repository_name, creator_github_id=creator_github_id
+    )
+    return db_projects
+
+
+@app.get("/projects/{project_id}", response_model=schemas.Project)
+def read_project(project_id: int, db: Session = Depends(get_db)):
+    db_project = crud.get_project(db, project_id=project_id)
+    if db_project is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_project
