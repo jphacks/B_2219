@@ -45,6 +45,7 @@ def get_projects(
     repository_owner: str | None = None,
     repository_name: str | None = None,
     creator_github_id: int | None = None,
+    progress_commit_hash: str | None = None,
 ):
     query = db.query(models.Project)
     if repository_owner:
@@ -56,7 +57,9 @@ def get_projects(
     return query.all()
 
 
-def create_project(db: Session, repository_owner: str, repository_name: str, creator_github_id: int):
+def create_project(
+    db: Session, repository_owner: str, repository_name: str, creator_github_id: int, progress_commit_hash: str
+):
     query = db.query(models.Project).filter(
         models.Project.repository_owner == repository_owner,
         models.Project.repository_name == repository_name,
@@ -64,9 +67,22 @@ def create_project(db: Session, repository_owner: str, repository_name: str, cre
     )
     if not db.query(query.exists()).scalar():
         db_project = models.Project(
-            repository_owner=repository_owner, repository_name=repository_name, creator_github_id=creator_github_id
+            repository_owner=repository_owner,
+            repository_name=repository_name,
+            creator_github_id=creator_github_id,
+            progress_commit_hash=progress_commit_hash,
         )
         db.add(db_project)
         db.commit()
         db.refresh(db_project)
         return db_project
+
+
+def update_project(db: Session, project_id: int, progress_commit_hash: str):
+    query = db.query(models.Project).filter(models.Project.id == project_id)
+
+    if db.query(query.exists()).scalar():
+        query.update({models.Project.progress_commit_hash: progress_commit_hash})
+        db.commit()
+        db.close()
+        return query.first()

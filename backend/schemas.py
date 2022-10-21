@@ -41,6 +41,11 @@ class ProjectCreate(BaseModel):
     repository_owner: str
     repository_name: str
     creator_github_id: int
+    progress_commit_hash: str
+
+
+class ProjectUpdate(BaseModel):
+    progress_commit_hash: str
 
 
 class Project(ProjectCreate):
@@ -51,6 +56,8 @@ class Project(ProjectCreate):
 
 
 class File(BaseModel):
+    id: int
+    project_id: int
     name: str
     content: str
 
