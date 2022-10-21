@@ -3,7 +3,7 @@ import { authOptions } from "./auth/[...nextauth]"
 
 const handler = async (req, res) => {
   if (req.method !== 'POST') {
-    return res.status(400);
+    return res.redirect(302, `/?error_msg=unknown`);
   }
   const session = await unstable_getServerSession(req, res, authOptions);
   if (!session) {
@@ -13,7 +13,7 @@ const handler = async (req, res) => {
   const repoRegex = /https:\/\/github.com\/(\w+)\/(\w+)/;
   const repoInfo = req.body.repo_url.match(repoRegex);
   if (repoInfo === null) {
-    return res.status(400);
+    return res.redirect(302, `/?error_msg=unknown`);
   }
 
   const repoData = {
