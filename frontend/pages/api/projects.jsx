@@ -20,6 +20,7 @@ const handler = async (req, res) => {
     "repository_owner": repoInfo[1],
     "repository_name": repoInfo[2],
     "creator_github_id": Number(session.user.id),
+    "access_token": session.access_token,
   };
 
   await fetch(`https://b-2219.fly.dev/projects/`, {
