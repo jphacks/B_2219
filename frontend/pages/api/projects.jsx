@@ -39,9 +39,9 @@ const handler = async (req, res) => {
           throw new Error("API ERROR");
       }
     }
-    res.redirect(303, `/projects/${apiResJSON.id}`);
+    return res.redirect(303, `/projects/${apiResJSON.id}`);
   }).catch((err) => {
-    console.error(`API ERROR:\n${JSON.stringify(err)}`);
+    return res.redirect(302, `/?error_msg=unknown`);
   });
 };
 
