@@ -58,6 +58,7 @@ def create_project(project: schemas.ProjectCreate, db: Session = Depends(get_db)
         repository_owner=project.repository_owner,
         repository_name=project.repository_name,
         creator_github_id=project.creator_github_id,
+        progress_commit_hash=project.progress_commit_hash,
     )
     if db_project is None:
         raise HTTPException(status_code=409, detail="Duplicate project")
@@ -69,10 +70,15 @@ def read_projects(
     repository_owner: str | None = None,
     repository_name: str | None = None,
     creator_github_id: int | None = None,
+    progress_commit_hash: str | None = None,
     db: Session = Depends(get_db),
 ):
     db_projects = crud.get_projects(
-        db, repository_owner=repository_owner, repository_name=repository_name, creator_github_id=creator_github_id
+        db,
+        repository_owner=repository_owner,
+        repository_name=repository_name,
+        creator_github_id=creator_github_id,
+        progress_commit_hash=progress_commit_hash,
     )
     return db_projects
 
@@ -80,6 +86,14 @@ def read_projects(
 @app.get("/projects/{project_id}", response_model=schemas.Project)
 def read_project(project_id: int, db: Session = Depends(get_db)):
     db_project = crud.get_project(db, project_id=project_id)
+    if db_project is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    return db_project
+
+
+@app.put("/projects/{project_id}", response_model=schemas.Project)
+def update_project(project_id: int, project: schemas.ProjectUpdate, db: Session = Depends(get_db)):
+    db_project = crud.update_project(db, project_id=project_id, progress_commit_hash=project.progress_commit_hash)
     if db_project is None:
         raise HTTPException(status_code=404, detail="User not found")
     return db_project
