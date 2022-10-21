@@ -34,3 +34,39 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+def get_project(db: Session, project_id: int):
+    return db.query(models.Project).filter(models.Project.id == project_id).first()
+
+
+def get_projects(
+    db: Session,
+    repository_owner: str | None = None,
+    repository_name: str | None = None,
+    creator_github_id: int | None = None,
+):
+    query = db.query(models.Project)
+    if repository_owner:
+        query = query.filter(models.Project.repository_owner == repository_owner)
+    if repository_name:
+        query = query.filter(models.Project.repository_name == repository_name)
+    if creator_github_id:
+        query = query.filter(models.Project.creator_github_id == creator_github_id)
+    return query.all()
+
+
+def create_project(db: Session, repository_owner: str, repository_name: str, creator_github_id: int):
+    query = db.query(models.Project).filter(
+        models.Project.repository_owner == repository_owner,
+        models.Project.repository_name == repository_name,
+        models.Project.creator_github_id == creator_github_id,
+    )
+    if not db.query(query.exists()).scalar():
+        db_project = models.Project(
+            repository_owner=repository_owner, repository_name=repository_name, creator_github_id=creator_github_id
+        )
+        db.add(db_project)
+        db.commit()
+        db.refresh(db_project)
+        return db_project

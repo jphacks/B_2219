@@ -37,9 +37,17 @@ class User(UserBase):
         orm_mode = True
 
 
-class Repository(BaseModel):
-    owner_name: str
+class ProjectCreate(BaseModel):
+    repository_owner: str
     repository_name: str
+    creator_github_id: int
+
+
+class Project(ProjectCreate):
+    id: int
+
+    class Config:
+        orm_mode = True
 
 
 class File(BaseModel):

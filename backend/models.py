@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
+from sqlalchemy.schema import UniqueConstraint
 
 from database import Base
 
@@ -24,3 +25,12 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="items")
+
+
+class Project(Base):
+    __tablename__ = "projects"
+
+    id = Column(Integer, primary_key=True, index=True)
+    repository_owner = Column(String, index=True)
+    repository_name = Column(String, index=True)
+    creator_github_id = Column(Integer, index=True)
