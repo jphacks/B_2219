@@ -3,9 +3,11 @@
   <img src="https://user-images.githubusercontent.com/52315048/197318654-db7e7801-3179-4e00-8097-67406dbe7c2e.svg" width="620px" alt="sutrace">
 </h1>
 
-## すっとトレース、Sutrace 
+## すっとトレース、Sutrace
 
 ![screenshot](https://user-images.githubusercontent.com/52315048/197320085-b837deb1-8ae7-459e-a387-ab2cb1e9a302.png)
+
+![demo](https://user-images.githubusercontent.com/52315048/197320638-48a1fd3d-e6ff-46e5-a745-a79c87821999.gif)
 
 
 ## 製品概要
