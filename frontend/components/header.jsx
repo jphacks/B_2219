@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className={styles.header_container}>
       <header>
-        <Link href="/">ShaKyo!</Link>
+        <Link href="/">Sutrace</Link>
         <LoginButton />
       </header>
     </div>
