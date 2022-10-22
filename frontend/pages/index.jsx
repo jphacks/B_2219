@@ -14,7 +14,7 @@ const TopPage = () => {
       <Layout className={styles.not_logged_in}>
         <Header />
         <main className={styles.not_logged_in}>
-          <p>SyaKyo!は先人のリポジトリを写経して学べるプログラミング学習サイトです！</p>
+          <p>Sutraceは先人のリポジトリを写経して学べるプログラミング学習サイトです！</p>
         </main>
       </Layout>
     );

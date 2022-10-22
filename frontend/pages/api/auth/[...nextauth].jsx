@@ -9,9 +9,16 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    session: async ({ session, token }) => {
+    jwt: async ({ token, user, account, profile, isNewUser }) => {
+      if (account?.access_token) {
+        token.access_token = account.access_token;
+      }
+      return token;
+    },
+    session: async ({ session, token, user }) => {
       if (session?.user) {
         session.user.id = token.sub;
+        session.access_token = token.access_token;
       }
       return session;
     },
