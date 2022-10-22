@@ -5,8 +5,6 @@
 
 ## すっとトレース、Sutrace
 
-![screenshot](https://user-images.githubusercontent.com/52315048/197320085-b837deb1-8ae7-459e-a387-ab2cb1e9a302.png)
-
 ![demo](https://user-images.githubusercontent.com/52315048/197320638-48a1fd3d-e6ff-46e5-a745-a79c87821999.gif)
 
 
